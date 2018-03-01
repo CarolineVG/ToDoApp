@@ -43,6 +43,12 @@ class Note {
   remove(){
     // HINT🤩 the meaning of 'this' was set by bind() in the createElement function
     // in this function, 'this' will refer to the current note element
+      console.log("click"); 
+  
+      
+     // newFunc = funcA.bind(this);
+      //element.removeEventListner('click', newFunc);
+      
   } 
 }
 
@@ -55,7 +61,8 @@ class App {
       // click button
       this.btnAdd = btn; 
       this.btnAdd.addEventListener("click", this.createNote.bind(this));
-
+      
+      
       
       // press enter
      /* document.getElementById("txtAddNote").addEventListener("keyup", function(event) {
@@ -65,6 +72,10 @@ class App {
 
         }
         });*/
+      
+      
+      // click link
+      //  this.document.querySelector(".card-remove").addEventListener("click",    );
       
       //this.btnAdd.addEventListener("click", this.createNote.bind(this));
 
@@ -78,28 +89,30 @@ class App {
     // load all notes from storage here and add them to the screen
     // something like note.add() in a loop would be nice
       
-      // Retrieve the object from storage
-var retrievedObject = localStorage.getItem('testObject');
+    // Retrieve the object from storage
+    var retrievedObject = localStorage.getItem('testObject');
 
-console.log('retrievedObject: ', JSON.parse(retrievedObject));
+    console.log('retrievedObject: ', JSON.parse(retrievedObject));
   }
    
   createNote(){
       console.log("create note"); 
     // this function should create a new note by using the Note() class
     
+    // get value from input field
+    let input =  document.getElementById("txtAddNote").value;
+    let note1 = new Note(input); 
+    note1.add();      
       
-let note1 = new Note("hello"); 
-note1.add();
+    // doesnt work (yet)
+    note1.saveToStorage();
+    this.reset(); 
       
-    // HINT🤩
-    // note.add();
-    // note.saveToStorage();
-    // this.reset();
   }
   
   reset(){
     // this function should reset the form 
+      
   }
   
 }
