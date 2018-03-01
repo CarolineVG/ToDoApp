@@ -6,10 +6,26 @@ class Note {
   
   createElement(title){
     let newNote = document.createElement('div');
-       
-    // HINT🤩 a.addEventListener('click', this.remove.bind(newNote));
+
       
-    
+    document.querySelector(".card-remove").addEventListener('click', this.remove.bind(newNote));
+
+
+      newNote.setAttribute("class", "card"); 
+      
+      // create paragraph
+      let paragraph = document.createElement("p");
+      paragraph.innerHTML = title;
+      
+      // create remove link
+      let link = document.createElement("a");
+      link.innerHTML = "Remove";
+      link.style.cursor = "pointer";
+      
+      newNote.appendChild(paragraph); 
+      newNote.appendChild(link); 
+      
+          
     return newNote;
   }
   
@@ -18,6 +34,10 @@ class Note {
   }
   
   saveToStorage(){
+      
+    // Put the object into storage
+    localStorage.setItem('testObject', JSON.stringify(this.element));
+ 
     // HINT🤩
     // localStorage only supports strings, not arrays
     // if you want to store arrays, look at JSON.parse and JSON.stringify
@@ -33,6 +53,7 @@ class App {
     
   constructor() {
       let btn = document.getElementById("btnAddNote");
+      
     /*console.log(btn);
     btn.addEventListener("click", function(){
     let n1 = new Note("hello"); 
@@ -54,12 +75,21 @@ this.btn = btn;
     // HINT🤩
     // load all notes from storage here and add them to the screen
     // something like note.add() in a loop would be nice
+      
+      // Retrieve the object from storage
+var retrievedObject = localStorage.getItem('testObject');
+
+console.log('retrievedObject: ', JSON.parse(retrievedObject));
   }
    
   createNote(){
       console.log("create note"); 
     // this function should create a new note by using the Note() class
     
+      
+let note1 = new Note("hello"); 
+note1.add();
+      
     // HINT🤩
     // note.add();
     // note.saveToStorage();
@@ -73,6 +103,7 @@ this.btn = btn;
 }
 
 
-let app = new App();
+let a1 = new App();
+
 let note1 = new Note("hello"); 
 note1.add();
