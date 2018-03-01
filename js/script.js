@@ -6,10 +6,8 @@ class Note {
   
   createElement(title){
     let newNote = document.createElement('div');
-
       
     document.querySelector(".card-remove").addEventListener('click', this.remove.bind(newNote));
-
 
       newNote.setAttribute("class", "card"); 
       
@@ -24,8 +22,7 @@ class Note {
       
       newNote.appendChild(paragraph); 
       newNote.appendChild(link); 
-      
-          
+                
     return newNote;
   }
   
@@ -53,21 +50,26 @@ class App {
     
   constructor() {
       let btn = document.getElementById("btnAddNote");
+      //createNote(); 
       
-    /*console.log(btn);
-    btn.addEventListener("click", function(){
-    let n1 = new Note("hello"); 
-    });*/
       // click button
-      
-this.btn = btn; 
+      this.btnAdd = btn; 
+      this.btnAdd.addEventListener("click", this.createNote.bind(this));
 
-    // HINT🤩
-    // clicking the button should work
       
-    // pressing the enter key should also work
-    // this.btnAdd = ???
-    // this.btnAdd.addEventListener("click", this.createNote.bind(this));
+      // press enter
+     /* document.getElementById("txtAddNote").addEventListener("keyup", function(event) {
+        event.preventDefault();
+        if (event.keyCode === 13) {
+            this.btnAdd.addEventListener("click", this.createNote.bind(this));
+
+        }
+        });*/
+      
+      //this.btnAdd.addEventListener("click", this.createNote.bind(this));
+
+      
+      
     // this.loadNotesFromStorage();
   }
   
@@ -107,3 +109,5 @@ let a1 = new App();
 
 let note1 = new Note("hello"); 
 note1.add();
+
+
