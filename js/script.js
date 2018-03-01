@@ -2,10 +2,14 @@ class Note {
   constructor(title) {
     this.title = title;
     // HINT🤩 this.element = this.createElement(title);
+      this.element = this.createElement(title);
+      console.log("constructor"); 
   }
   
   createElement(title){
     let newNote = document.createElement('div');
+    let header = `<p>${title}</p>`; 
+      console.log(header); 
     
     // HINT🤩 a.addEventListener('click', this.remove.bind(newNote));
     
@@ -30,11 +34,19 @@ class Note {
 }
 
 class App {
+    
   constructor() {
-    console.log("👊🏼 The Constructor!");
-  
+    console.log(btn);
+    btn.addEventListener("click", function(){
+    let n1 = new Note("hello"); 
+    });
+      // click button
+      
+this.btn = btn; 
+
     // HINT🤩
     // clicking the button should work
+      
     // pressing the enter key should also work
     // this.btnAdd = ???
     // this.btnAdd.addEventListener("click", this.createNote.bind(this));
@@ -47,7 +59,8 @@ class App {
     // something like note.add() in a loop would be nice
   }
    
-  createNote(e){
+  createNote(){
+      console.log("create note"); 
     // this function should create a new note by using the Note() class
     
     // HINT🤩
@@ -62,4 +75,8 @@ class App {
   
 }
 
+// vars
+let btn = document.getElementById("btnAddNote"); 
+
 let app = new App();
+
