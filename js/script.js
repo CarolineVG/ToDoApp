@@ -104,15 +104,18 @@ class App {
     let note1 = new Note(input); 
     note1.add();      
       
+    
+    this.reset(); 
+      
     // doesnt work (yet)
     note1.saveToStorage();
-    this.reset(); 
       
   }
   
   reset(){
-    // this function should reset the form 
-      
+    // this function should reset the form
+      document.getElementById("txtAddNote").value="";
+
   }
   
 }
