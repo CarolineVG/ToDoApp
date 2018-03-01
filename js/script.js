@@ -1,24 +1,20 @@
 class Note {
   constructor(title) {
     this.title = title;
-    // HINT🤩 this.element = this.createElement(title);
-      this.element = this.createElement(title);
-      console.log("constructor"); 
+    this.element = this.createElement(title);
   }
   
   createElement(title){
     let newNote = document.createElement('div');
-    let header = `<p>${title}</p>`; 
-      console.log(header); 
-    
+       
     // HINT🤩 a.addEventListener('click', this.remove.bind(newNote));
+      
     
     return newNote;
   }
   
   add(){
-    // HINT🤩
-    // this function should append the note to the screen somehow
+     document.querySelector(".notes").appendChild(this.element);
   }
   
   saveToStorage(){
@@ -36,10 +32,11 @@ class Note {
 class App {
     
   constructor() {
-    console.log(btn);
+      let btn = document.getElementById("btnAddNote");
+    /*console.log(btn);
     btn.addEventListener("click", function(){
     let n1 = new Note("hello"); 
-    });
+    });*/
       // click button
       
 this.btn = btn; 
@@ -75,8 +72,7 @@ this.btn = btn;
   
 }
 
-// vars
-let btn = document.getElementById("btnAddNote"); 
 
 let app = new App();
-
+let note1 = new Note("hello"); 
+note1.add();
