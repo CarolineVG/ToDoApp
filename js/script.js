@@ -1,3 +1,5 @@
+let messages = []; 
+
 class Note {
   constructor(title) {
     this.title = title;
@@ -32,7 +34,7 @@ class Note {
       }
       
       
-      this.saveToStorage(title); 
+      //this.saveToStorage(title); 
       
       /*let myID = localStorage.length; 
       
@@ -62,7 +64,9 @@ class Note {
     // localStorage only supports strings, not arrays
     // if you want to store arrays, look at JSON.parse and JSON.stringify
       
-      
+      messages.push(message);
+      localStorage.setItem('notes', JSON.stringify(messages));
+      console.log(messages);
       
   }
   
@@ -90,6 +94,7 @@ class App {
         });
       
      //localStorage.clear(); 
+      this.loadNotesFromStorage(); 
   }
   
   loadNotesFromStorage() {
@@ -102,8 +107,6 @@ class App {
       console.log("storage: " + data);*/
       
     
-      
-    
   }
    
   createNote(){
@@ -112,8 +115,7 @@ class App {
       
       // check if input is not empty
       if (input!=""){
-           let note = new Note(input); 
-          console.log(note); 
+           let note = new Note(input);
             note.add();      
             this.reset(); 
             // doesnt work (yet)
@@ -128,6 +130,10 @@ class App {
   }
   
 }
-let counter = 0; 
+ /*let cardsArray = localStorage.getItem('cards') ? JSON.parse(localStorage.getItem('cards')) : [];
+  localStorage.setItem('cards', JSON.stringify(cardsArray));
+  const data = JSON.parse(localStorage.getItem('cards'));
+  let cardCounter = 0;*/
+
 let app = new App();
-app.loadNotesFromStorage();
+
