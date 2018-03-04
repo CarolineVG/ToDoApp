@@ -1,9 +1,11 @@
-let messages = []; 
+let messages = [];
+messages = localStorage.getItem("notes") ?JSON.parse(localStorage.getItem("notes")):[];
 let counter = 0;
 
 class Note {
   constructor(title) {
     this.title = title;
+      console.log("title: " + title); 
     this.element = this.createElement(title);    
   }
   
@@ -12,6 +14,7 @@ class Note {
     let newNote = document.createElement('div');
  
       newNote.setAttribute("class", "card"); 
+      newNote.name = title; 
       
       // create paragraph
       let paragraph = document.createElement("p");
@@ -29,10 +32,7 @@ class Note {
       newNote.appendChild(link); 
       
       // delete note 
-      link.onclick = function() {          
-          let itemToDelete = this.parentNode; 
-          itemToDelete.remove(); 
-      }
+      link.addEventListener('click', this.remove.bind(newNote));
       
     return newNote;
   }
@@ -44,22 +44,32 @@ class Note {
   saveToStorage(message){
       messages.push(message);
       localStorage.setItem('notes', JSON.stringify(messages));
-      console.log(messages);
+      //console.log(messages);
   }
   
   remove(){
-      // remove is an existing function
+      console.log("remove item");
+      // remove from storage
+       let location = messages.indexOf(`${this.name}`);
+       console.log(location);
+      if (location >= 0) {
+          messages.splice(location,1);
+          localStorage.setItem('notes', JSON.stringify(messages));
+      }
+      
+      // remove from screen 
+      this.style.visibility = "hidden"; 
   } 
 }
 
 class App {
     
   constructor() {
+      this.loadNotesFromStorage(); 
       let btn = document.getElementById("btnAddNote");
       
       // click button
       btn.addEventListener("click", this.createNote.bind(this));
-            
       
       // press enter
       document.getElementById("txtAddNote").addEventListener("keyup", function(event) {
@@ -71,7 +81,7 @@ class App {
         });
       
      //localStorage.clear(); 
-      this.loadNotesFromStorage(); 
+      
   }
   
   loadNotesFromStorage() {
@@ -80,12 +90,15 @@ class App {
       let showmessages = JSON.parse(localStorage.getItem('notes'));
       console.log(showmessages); 
       
+      if (showmessages!== null){ 
       showmessages.forEach(function(i){
           let note = new Note(i);
           console.log(note); 
           note.add(); 
           counter++;
       });
+      }
+      console.log("array " + messages); 
   }
    
   createNote(){
@@ -97,7 +110,6 @@ class App {
            let note = new Note(input);
             note.add();      
             this.reset(); 
-            // doesnt work (yet)
             note.saveToStorage(input);
       }
   }
