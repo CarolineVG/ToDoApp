@@ -25,11 +25,30 @@ class Note {
       newNote.appendChild(paragraph); 
       newNote.appendChild(link); 
       
-      
+      // delete note 
       link.onclick = function() {          
           let itemToDelete = this.parentNode; 
           itemToDelete.remove(); 
       }
+      
+      
+      this.saveToStorage(title); 
+      
+      /*let myID = localStorage.length; 
+      
+      // save 
+      let task = {
+          id: myID,
+          name:title
+      }*/
+      
+      // Saving element in local storage
+
+    /*  localStorage.setItem("todoData", JSON.stringify(task));
+      
+      // test to get data
+      let data = JSON.parse(localStorage.getItem("todoData"));
+      console.log(data); */
       
     return newNote;
   }
@@ -38,20 +57,17 @@ class Note {
      document.querySelector(".notes").appendChild(this.element);
   }
   
-  saveToStorage(){
-      
-    // Put the object into storage
-    localStorage.setItem('testObject', JSON.stringify(this.element));
- 
+  saveToStorage(message){
     // HINT🤩
     // localStorage only supports strings, not arrays
     // if you want to store arrays, look at JSON.parse and JSON.stringify
+      
+      
+      
   }
   
   remove(){
-    // HINT🤩 the meaning of 'this' was set by bind() in the createElement function
-    // in this function, 'this' will refer to the current note element
-            
+      // remove is an existing function
   } 
 }
 
@@ -59,25 +75,21 @@ class App {
     
   constructor() {
       let btn = document.getElementById("btnAddNote");
-      //createNote(); 
       
       // click button
-      this.btnAdd = btn; 
-      this.btnAdd.addEventListener("click", this.createNote.bind(this));
+      btn.addEventListener("click", this.createNote.bind(this));
             
       
       // press enter
       document.getElementById("txtAddNote").addEventListener("keyup", function(event) {
-        event.preventDefault();
-        if (event.keyCode === 13) {
-            console.log("enter"); 
-            this.btnAdd.addEventListener("click", this.createNote.bind(this));
-
-        }
+          // Cancel the default action
+          event.preventDefault();
+          if (event.keyCode === 13) {
+              btn.click();                
+          }
         });
       
-      
-    // this.loadNotesFromStorage();
+     //localStorage.clear(); 
   }
   
   loadNotesFromStorage() {
@@ -86,25 +98,27 @@ class App {
     // something like note.add() in a loop would be nice
       
     // Retrieve the object from storage
-    var retrievedObject = localStorage.getItem('testObject');
-
-    console.log('retrievedObject: ', JSON.parse(retrievedObject));
+   /*     let data = JSON.parse(localStorage.getItem("todoData"));
+      console.log("storage: " + data);*/
+      
+    
+      
+    
   }
    
   createNote(){
-      console.log("create note"); 
-    // this function should create a new note by using the Note() class
-    
     // get value from input field
-    let input =  document.getElementById("txtAddNote").value;
-    let note = new Note(input); 
-    note.add();      
+    let input = document.getElementById("txtAddNote").value;
       
-    
-    this.reset(); 
-      
-    // doesnt work (yet)
-    note.saveToStorage();
+      // check if input is not empty
+      if (input!=""){
+           let note = new Note(input); 
+          console.log(note); 
+            note.add();      
+            this.reset(); 
+            // doesnt work (yet)
+            note.saveToStorage(input);
+      }
       
   }
   
@@ -113,4 +127,7 @@ class App {
       document.getElementById("txtAddNote").value="";
   }
   
-}      
+}
+let counter = 0; 
+let app = new App();
+app.loadNotesFromStorage();
