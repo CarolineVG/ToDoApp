@@ -1,4 +1,5 @@
 let messages = []; 
+let counter = 0;
 
 class Note {
   constructor(title) {
@@ -33,25 +34,6 @@ class Note {
           itemToDelete.remove(); 
       }
       
-      
-      //this.saveToStorage(title); 
-      
-      /*let myID = localStorage.length; 
-      
-      // save 
-      let task = {
-          id: myID,
-          name:title
-      }*/
-      
-      // Saving element in local storage
-
-    /*  localStorage.setItem("todoData", JSON.stringify(task));
-      
-      // test to get data
-      let data = JSON.parse(localStorage.getItem("todoData"));
-      console.log(data); */
-      
     return newNote;
   }
   
@@ -60,14 +42,9 @@ class Note {
   }
   
   saveToStorage(message){
-    // HINT🤩
-    // localStorage only supports strings, not arrays
-    // if you want to store arrays, look at JSON.parse and JSON.stringify
-      
       messages.push(message);
       localStorage.setItem('notes', JSON.stringify(messages));
       console.log(messages);
-      
   }
   
   remove(){
@@ -98,15 +75,17 @@ class App {
   }
   
   loadNotesFromStorage() {
-    // HINT🤩
-    // load all notes from storage here and add them to the screen
-    // something like note.add() in a loop would be nice
+      console.log("show messages!"); 
       
-    // Retrieve the object from storage
-   /*     let data = JSON.parse(localStorage.getItem("todoData"));
-      console.log("storage: " + data);*/
+      let showmessages = JSON.parse(localStorage.getItem('notes'));
+      console.log(showmessages); 
       
-    
+      showmessages.forEach(function(i){
+          let note = new Note(i);
+          console.log(note); 
+          note.add(); 
+          counter++;
+      });
   }
    
   createNote(){
@@ -121,7 +100,6 @@ class App {
             // doesnt work (yet)
             note.saveToStorage(input);
       }
-      
   }
   
   reset(){
@@ -130,10 +108,4 @@ class App {
   }
   
 }
- /*let cardsArray = localStorage.getItem('cards') ? JSON.parse(localStorage.getItem('cards')) : [];
-  localStorage.setItem('cards', JSON.stringify(cardsArray));
-  const data = JSON.parse(localStorage.getItem('cards'));
-  let cardCounter = 0;*/
-
 let app = new App();
-
